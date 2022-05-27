@@ -492,7 +492,7 @@ section {
 .about .content .about-btn i {
   font-size: 18px;
   position: absolute;
-  right: 12px;
+  right: 18px;
   top: 9px;
 }
 .about .content .about-btn:hover {
@@ -504,7 +504,7 @@ section {
 .about .icon-boxes .icon-box i {
   font-size: 51px;
   color: #a8866b;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .about .icon-boxes .icon-box h4 {
   font-size: 20px;
