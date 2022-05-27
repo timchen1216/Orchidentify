@@ -397,7 +397,7 @@ section {
   transform: translate(-50%, -50%);
   width: 122px;
   height: 66px;
-  background: url("../img/section-title-bg1.png") no-repeat;
+  background: url("../img/section-title-bg.png") no-repeat;
   z-index: -1;
 }
 .section-title p {
@@ -449,7 +449,7 @@ section {
 # About
 --------------------------------------------------------------*/
 .about {
-  background: url("../img/about-bg.jpg") center center no-repeat;
+  background: url("../img/about bg.jpg") center center no-repeat;
   background-size: cover;
   padding: 60px 0;
   position: relative;
@@ -492,19 +492,19 @@ section {
 .about .content .about-btn i {
   font-size: 18px;
   position: absolute;
-  right: 18px;
+  right: 12px;
   top: 9px;
 }
 .about .content .about-btn:hover {
   background: #a8866b;
 }
 .about .icon-boxes .icon-box {
-  margin-top: 30px;
+  margin-top:30px;
 }
 .about .icon-boxes .icon-box i {
-  font-size: 40px;
+  font-size: 51px;
   color: #a8866b;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .about .icon-boxes .icon-box h4 {
   font-size: 20px;
@@ -567,8 +567,8 @@ section {
 }
 .services .title {
   font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 18px;
+  margin-bottom: 17px;
+  font-size: 20px;
 }
 .services .title a {
   color: #111;
