@@ -256,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-mobile a, .navbar-mobile a:focus {
   padding: 10px 20px;
   font-size: 15px;
-  color: #2f4d5a;
+  color: #2f5a42;
 }
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
   color: #a4dfb6;
@@ -397,7 +397,7 @@ section {
   transform: translate(-50%, -50%);
   width: 122px;
   height: 66px;
-  background: url("../img/section-title-bg1.png") no-repeat;
+  background: url("../img/section-title-bg.png") no-repeat;
   z-index: -1;
 }
 .section-title p {
@@ -449,7 +449,7 @@ section {
 # About
 --------------------------------------------------------------*/
 .about {
-  background: url("../img/about-bg.jpg") center center no-repeat;
+  background: url("../img/about bg.png") center center no-repeat;
   background-size: cover;
   padding: 60px 0;
   position: relative;
@@ -499,10 +499,10 @@ section {
   background: #a8866b;
 }
 .about .icon-boxes .icon-box {
-  margin-top: 30px;
+  margin-top:30px;
 }
 .about .icon-boxes .icon-box i {
-  font-size: 40px;
+  font-size: 51px;
   color: #a8866b;
   margin-bottom: 10px;
 }
@@ -567,8 +567,8 @@ section {
 }
 .services .title {
   font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 18px;
+  margin-bottom: 17px;
+  font-size: 20px;
 }
 .services .title a {
   color: #111;
@@ -598,7 +598,7 @@ section {
 .counts .count-box i {
   display: block;
   font-size: 44px;
-  color: #67b0d1;
+  color: #de955d;
   float: left;
   line-height: 0;
 }
@@ -607,21 +607,21 @@ section {
   line-height: 40px;
   display: block;
   font-weight: 700;
-  color: #2f4d5a;
+  color: #355222;
   margin-left: 60px;
 }
 .counts .count-box p {
   padding: 15px 0 0 0;
   margin: 0 0 0 60px;
   font-family: "Raleway", sans-serif;
-  font-size: 14px;
-  color: #49788c;
+  font-size: 18px;
+  color: #557d2aa9;
 }
 .counts .count-box a {
   font-weight: 600;
   display: block;
   margin-top: 20px;
-  color: #49788c;
+  color: #49888c;
   font-size: 15px;
   font-family: "Poppins", sans-serif;
   transition: ease-in-out 0.3s;
@@ -732,7 +732,7 @@ section {
   text-align: center;
   background: rgba(130, 179, 149, 0.671);
   transition: 0.3s;
-  width: 50%;
+  width: 100%;
 }
 .portfolio .portfolio-wrap .portfolio-links a:hover {
   background: rgba(88, 158, 115, 0.95);
@@ -821,18 +821,18 @@ section {
   min-height: 320px;
 }
 .testimonials .testimonial-item .testimonial-img {
-  width: 90px;
-  border-radius: 50%;
+  width: 250px;
+  /* border-radius: 50%; */
   margin: 0 auto;
 }
 .testimonials .testimonial-item h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   margin: 10px 0 5px 0;
   color: #111;
 }
 .testimonials .testimonial-item h4 {
-  font-size: 14px;
+  font-size: 16px;
   color: #999;
   margin: 0;
 }
@@ -881,10 +881,10 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #67b0d1;
+  border: 1px solid #78cea6;
 }
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #67b0d1;
+  background-color: #3a9866;
 }
 
 /*--------------------------------------------------------------
