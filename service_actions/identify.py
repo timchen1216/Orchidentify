@@ -3,6 +3,7 @@ import pyimgur
 import pandas as pd
 import os
 from googlesearch import search
+from bs4 import beautifulsoup4
 
 df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 
