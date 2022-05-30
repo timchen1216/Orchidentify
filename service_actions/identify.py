@@ -1,14 +1,8 @@
-from urllib.parse import parse_qsl, parse_qs
-import datetime, random, json
-from flask import url_for
-from linebot.models import messages
 from line_chatbot_api import *
 import pyimgur
 import pandas as pd
 import os
 from googlesearch import search
-from bs4 import beautifulsoup4
-import google
 
 df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 
