@@ -5,8 +5,8 @@ from linebot.models import messages
 from line_chatbot_api import *
 import pyimgur
 import pandas as pd
-
-df = pd.read_csv("label_new.csv", encoding = "Big5")
+import os
+df = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "Big5")
 cat = str(df[df['category'] == 4]['species'].tolist()[0])
 
 def get_imgur_url():
