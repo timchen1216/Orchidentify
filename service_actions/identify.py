@@ -21,7 +21,7 @@ def call_identify_result(event):
     # Model 做預測
     # img path = 'static/images/temp_image.png'
     # img url = get_imgur_url()
-    species = '白拉索蘭' 
+    species = '蝴蝶蘭' 
     genus = str(df[df['species'] == species]['genus'].tolist()[0])
 
     message = TemplateSendMessage(
