@@ -16,7 +16,7 @@ def get_imgur_url():
 
 def call_identify(event):
     messages=[]
-    messages.append(TextSendMessage(text='請上傳一張蘭花圖片!'))
+    messages.append(TextSendMessage(text='請上傳一張蘭花圖片~'))
     line_bot_api.reply_message(event.reply_token, messages)
 
 def call_identify_result(event):
