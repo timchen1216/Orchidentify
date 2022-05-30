@@ -1,6 +1,5 @@
 from flask import Flask, request, abort, url_for, render_template
 from urllib.parse import parse_qsl, parse_qs
-import random
 from linebot.models import events
 from line_chatbot_api import *
 from service_actions.book import call_book
