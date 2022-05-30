@@ -1,5 +1,3 @@
-from urllib.parse import parse_qsl, parse_qs
-import datetime
 from line_chatbot_api import *
 import pandas as pd
 import os
