@@ -44,7 +44,16 @@ def handle_postback(event):
         call_introduction(event, postback_data.get('item'))
     elif postback_data.get('action')=='相關連結':
         call_related_link(event, postback_data.get('item'))
-
+    elif postback_data.get('action')=='蘭花圖鑑1':
+        call_book_one(event)
+    elif postback_data.get('action')=='蘭花圖鑑2':
+        call_book_two(event)
+    elif postback_data.get('action')=='蘭花圖鑑3':
+        call_book_three(event)
+    elif postback_data.get('action')=='蘭花圖鑑4':
+        call_book_four(event)
+    # elif postback_data.get('action')=='蘭花圖鑑5':
+    #     call_book_five(event)
 
 @handler.add(MessageEvent)
 def handle_something(event):
@@ -53,7 +62,7 @@ def handle_something(event):
         # print(recrive_text)
         if '蘭花辨識' in recrive_text:
             call_identify(event)
-        elif '蘭花圖鑑' in recrive_text:
+        elif '蘭花圖鑑' == recrive_text:
             call_book(event)
     elif event.message.type=='image':
         message_content = line_bot_api.get_message_content(event.message.id)
