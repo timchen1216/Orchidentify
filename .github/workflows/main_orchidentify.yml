@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'Orchidentify'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_80574B4613A147F9A3A99914F34EE075 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D914CB75C6A43FBBE9C0A442CCC0052 }}
