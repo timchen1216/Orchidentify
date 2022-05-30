@@ -4,6 +4,10 @@ from flask import url_for
 from linebot.models import messages
 from line_chatbot_api import *
 import pyimgur
+import pandas as pd
+import os
+df = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "Big5")
+cat = str(df[df['category'] == 4]['species'].tolist()[0])
 
 def get_imgur_url():
     CLIENT_ID = "4653751ffaba421"
@@ -14,26 +18,32 @@ def get_imgur_url():
 
 def call_identify(event):
     messages=[]
-    messages.append(TextSendMessage(text='請上傳一張蘭花圖片'))
+    messages.append(TextSendMessage(text='請上傳一張蘭花圖片：)'))
     line_bot_api.reply_message(event.reply_token, messages)
 
 def call_identify_result(event):
+    # Model 做預測
+    # img path = 'static/images/temp_image.png'
+    # img url = get_imgur_url()
+    species = '蝴蝶蘭'
+    genus = str(df[df['species'] == species]['genus'].tolist()[0])
+
     message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
             thumbnail_image_url=get_imgur_url(),
-            title='蝴蝶蘭',
-            text='蝴蝶蘭屬',
+            title=species,
+            text=genus,
             actions=[
                 PostbackAction(
                     label='品種介紹',
                     display_text='品種介紹',
-                    data='action=品種介紹&item=蝴蝶蘭'
+                    data='action=品種介紹&item=' + species
                 ),
                 PostbackAction(
                     label='相關連結',
                     display_text='相關連結',
-                    data='action=相關連結&item=蝴蝶蘭'
+                    data='action=相關連結&item=' + species
                 )
             ]
         )
