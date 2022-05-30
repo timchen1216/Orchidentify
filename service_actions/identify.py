@@ -7,6 +7,8 @@ import pyimgur
 import pandas as pd
 import os
 from googlesearch import search
+from bs4 import beautifulsoup4
+import google
 
 df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 
@@ -19,7 +21,7 @@ def get_imgur_url():
 
 def call_identify(event):
     messages=[]
-    messages.append(TextSendMessage(text='請上傳一張蘭花圖片^^'))
+    messages.append(TextSendMessage(text='請上傳一張蘭花圖片!'))
     line_bot_api.reply_message(event.reply_token, messages)
 
 def call_identify_result(event):
