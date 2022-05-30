@@ -2,7 +2,6 @@ from line_chatbot_api import *
 import pyimgur
 import pandas as pd
 import os
-from googlesearch import search
 
 df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 
@@ -54,17 +53,12 @@ def call_introduction(event, item):
     line_bot_api.reply_message(event.reply_token, messages)  
 
 def call_related_link(event, item):
-    link_list = get_related_link(item)
     messages=[]
     messages.append(TextSendMessage(text=item+'搜尋結果：'))
-    messages.append(TextSendMessage(text=link_list[0]))
-    messages.append(TextSendMessage(text=link_list[1]))
-    messages.append(TextSendMessage(text=link_list[2]))
-    messages.append(TextSendMessage(text=link_list[3]))
+    messages.append(TextSendMessage(text=df[df['species'] == item]['related_link_0'].tolist()[0]))
+    messages.append(TextSendMessage(text=df[df['species'] == item]['related_link_1'].tolist()[0]))
+    messages.append(TextSendMessage(text=df[df['species'] == item]['related_link_2'].tolist()[0]))
+    messages.append(TextSendMessage(text=df[df['species'] == item]['related_link_3'].tolist()[0]))
     line_bot_api.reply_message(event.reply_token, messages)
 
-def get_related_link(query):
-    link_list = []
-    for j in search(query, stop=4, pause=2.0): 
-        link_list.append(j)
-    return link_list
+
