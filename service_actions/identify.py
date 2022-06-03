@@ -29,7 +29,7 @@ def predict(img):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = torchvision.models.resnet101(pretrained=True).to(device)
     num_ftrs = model.fc.in_features
-    model.fc = nn.Linear(num_ftrs, 219).cuda()  # 最後一層
+    model.fc = nn.Linear(num_ftrs, 219).to(device) # 最後一層
     model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
 
     preprocess = transforms.Compose([
