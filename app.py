@@ -5,6 +5,8 @@ from line_chatbot_api import *
 from service_actions.identify import *
 from service_actions.book import *
 
+
+
 # create flask server
 app = Flask(__name__)
 
@@ -69,4 +71,4 @@ def handle_something(event):
         call_identify_result(event)
         
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5008, debug=True)

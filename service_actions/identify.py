@@ -3,8 +3,16 @@ from line_chatbot_api import *
 import pandas as pd
 import os
 from flask import url_for
+import torch
+import torch.nn as nn
+import torchvision
+import torchvision.transforms as transforms
+import numpy as np
+from PIL import Image
 
-df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
+
+df  = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
+df2 = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "Big5")
 
 # def get_imgur_url():
 #     CLIENT_ID = "4653751ffaba421"
@@ -18,8 +26,38 @@ def call_identify(event):
     messages.append(TextSendMessage(text='請上傳一張蘭花圖片~'))
     line_bot_api.reply_message(event.reply_token, messages)
 
+def predict(img):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = torchvision.models.resnet101(pretrained=True).to(device)
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, 219).to(device) # 最後一層
+    model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
+
+    preprocess = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
+    )])
+    img_preprocessed = preprocess(img)
+    batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)
+    x_tensor = batch_img_tensor.to(device)
+
+    model.eval()
+    out = model(x_tensor)
+    label = np.argmax(out.cpu().data.numpy(), axis=1)    
+
+    return label
+
+
 def call_identify_result(event):
-    species = '白拉索蘭' 
+    # Model 做預測
+    img = Image.open("static/images/temp_image.png").convert('RGB')
+    label = predict(img)
+    label = label.item() # numpy iny64 to python int
+    species = str(df2[df2['category'] == label]['species'].tolist()[0])
     genus = str(df[df['species'] == species]['genus'].tolist()[0])
     # print('='*6,url_for('static', filename='images/temp_image.png', _external=True),'='*6)
     message = TemplateSendMessage(
