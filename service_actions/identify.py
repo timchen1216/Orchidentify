@@ -58,30 +58,36 @@ def call_identify_result(event):
     label = predict(img)
     label = label.item() # numpy iny64 to python int
     species = str(df2[df2['category'] == label]['species'].tolist()[0])
-    genus = str(df[df['species'] == species]['genus'].tolist()[0])
-    # print('='*6,url_for('static', filename='images/temp_image.png', _external=True),'='*6)
-    message = TemplateSendMessage(
-        alt_text='Buttons template',
-        template=ButtonsTemplate(
-            thumbnail_image_url=url_for('static', filename='images/temp_image.png', _external=True).replace('http://', 'https://'),
-            # thumbnail_image_url=get_imgur_url(),
-            title=species,
-            text=genus,
-            actions=[
-                PostbackAction(
-                    label='品種介紹',
-                    display_text='品種介紹',
-                    data='action=品種介紹&item=' + species
-                ),
-                PostbackAction(
-                    label='相關連結',
-                    display_text='相關連結',
-                    data='action=相關連結&item=' + species
-                )
-            ]
+    if species == 'X':
+        # 辨識到未知的品種
+        messages=[]
+        messages.append(StickerSendMessage(package_id=11538, sticker_id=51626532))
+        messages.append(TextSendMessage(text='什麼？這樣特別的蘭花我還是第一次見到呢...再上傳別張圖片試試吧！'))
+        line_bot_api.reply_message(event.reply_token, messages)
+    else:
+        genus = str(df[df['species'] == species]['genus'].tolist()[0])
+        message = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url=url_for('static', filename='images/temp_image.png', _external=True).replace('http://', 'https://'),
+                # thumbnail_image_url=get_imgur_url(),
+                title=species,
+                text=genus,
+                actions=[
+                    PostbackAction(
+                        label='品種介紹',
+                        display_text='品種介紹',
+                        data='action=品種介紹&item=' + species
+                    ),
+                    PostbackAction(
+                        label='相關連結',
+                        display_text='相關連結',
+                        data='action=相關連結&item=' + species
+                    )
+                ]
+            )
         )
-    )
-    line_bot_api.reply_message(event.reply_token, message)
+        line_bot_api.reply_message(event.reply_token, message)
 
 def call_introduction(event, item):
     introduction = str(df[df['species'] == item]['introduction'].tolist()[0])
