@@ -1,16 +1,17 @@
 from line_chatbot_api import *
-import pyimgur
+# import pyimgur
 import pandas as pd
 import os
+from flask import url_for
 
 df = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 
-def get_imgur_url():
-    CLIENT_ID = "4653751ffaba421"
-    PATH = "static/images/temp_image.png"
-    im = pyimgur.Imgur(CLIENT_ID)
-    uploaded_image = im.upload_image(PATH, title="Uploaded with PyImgur")
-    return uploaded_image.link
+# def get_imgur_url():
+#     CLIENT_ID = "4653751ffaba421"
+#     PATH = "static/images/temp_image.png"
+#     im = pyimgur.Imgur(CLIENT_ID)
+#     uploaded_image = im.upload_image(PATH, title="Uploaded with PyImgur")
+#     return uploaded_image.link
 
 def call_identify(event):
     messages=[]
@@ -18,16 +19,14 @@ def call_identify(event):
     line_bot_api.reply_message(event.reply_token, messages)
 
 def call_identify_result(event):
-    # Model 做預測
-    # img path = 'static/images/temp_image.png'
-    # img url = get_imgur_url()
     species = '白拉索蘭' 
     genus = str(df[df['species'] == species]['genus'].tolist()[0])
-
+    # print('='*6,url_for('static', filename='images/temp_image.png', _external=True),'='*6)
     message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            thumbnail_image_url=get_imgur_url(),
+            thumbnail_image_url=url_for('static', filename='images/temp_image.png', _external=True).replace('http://', 'https://'),
+            # thumbnail_image_url=get_imgur_url(),
             title=species,
             text=genus,
             actions=[
