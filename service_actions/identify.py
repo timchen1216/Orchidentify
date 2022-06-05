@@ -22,7 +22,7 @@ df2 = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "B
 
 def call_identify(event):
     messages=[]
-    messages.append(TextSendMessage(text='請上傳一張蘭花圖片~'))
+    messages.append(TextSendMessage(text='請上傳一張蘭花圖片!!'))
     line_bot_api.reply_message(event.reply_token, messages)
 
 def predict(img):
