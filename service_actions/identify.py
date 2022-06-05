@@ -8,7 +8,7 @@ import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 import numpy as np
-from PIL import Image
+import cv2
 
 df  = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 df2 = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "Big5")
@@ -27,20 +27,13 @@ def call_identify(event):
 
 def predict(img):
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    # model = torchvision.models.resnet101(pretrained=True).to(device)
-    # num_ftrs = model.fc.in_features
-    # model.fc = nn.Linear(num_ftrs, 219).to(device) # 最後一層
-    # model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
     model = torch.load('model.pth').to(device)
 
     preprocess = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
-    )])
+    transforms.ToPILImage(),
+    transforms.Resize((256,256)),
+    transforms.ToTensor(),
+    ])
     img_preprocessed = preprocess(img)
     batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)
     x_tensor = batch_img_tensor.to(device)
@@ -54,7 +47,8 @@ def predict(img):
 
 def call_identify_result(event):
     # Model 做預測
-    img = Image.open("static/images/temp_image.png").convert('RGB')
+    img=cv2.imread("./photo/1kt9palgbf.jpg")
+    img=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     label = predict(img)
     label = label.item() # numpy iny64 to python int
     species = str(df2[df2['category'] == label]['species'].tolist()[0])
