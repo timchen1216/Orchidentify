@@ -47,7 +47,7 @@ def predict(img):
 
 def call_identify_result(event):
     # Model 做預測
-    img=cv2.imread("./photo/1kt9palgbf.jpg")
+    img=cv2.imread("static/images/temp_image.png")
     img=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     label = predict(img)
     label = label.item() # numpy iny64 to python int
