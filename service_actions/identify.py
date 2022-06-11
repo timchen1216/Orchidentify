@@ -65,7 +65,8 @@ def call_identify_result(event):
 
     label = predict(img)
     label = label.item() # numpy iny64 to python int
-    species = str(df2[df2['category'] == label]['species'].tolist()[0])    
+    species = str(df2[df2['category'] == label]['species'].tolist()[0])
+    species = '白拉索蘭'    
 
     if species == 'X':
         # 辨識到未知的品種
