@@ -1,5 +1,5 @@
 from line_chatbot_api import *
-# import pyimgur
+import pyimgur
 import pandas as pd
 import os
 from flask import url_for
@@ -14,12 +14,12 @@ import cv2
 df  = pd.read_csv(os.path.join("service_actions","orchid_book.csv"), encoding = "Big5")
 df2 = pd.read_csv(os.path.join("service_actions","label_new.csv"), encoding = "Big5")
 
-# def get_imgur_url():
-#     CLIENT_ID = "4653751ffaba421"
-#     PATH = "static/images/temp_image.png"
-#     im = pyimgur.Imgur(CLIENT_ID)
-#     uploaded_image = im.upload_image(PATH, title="Uploaded with PyImgur")
-#     return uploaded_image.link
+def get_imgur_url():
+    CLIENT_ID = "4653751ffaba421"
+    PATH = "static/images/temp_image.png"
+    im = pyimgur.Imgur(CLIENT_ID)
+    uploaded_image = im.upload_image(PATH, title="Uploaded with PyImgur")
+    return uploaded_image.link
 
 def call_identify(event):
     messages=[]
@@ -28,20 +28,16 @@ def call_identify(event):
 
 def predict(img):
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    # model = torchvision.models.resnet101(pretrained=True).to(device)
-    # num_ftrs = model.fc.in_features
-    # model.fc = nn.Linear(num_ftrs, 219).to(device) # 最後一層
-    # model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
-    model = torch.load('model.pth').to(device)
+    model = torchvision.models.resnet101(pretrained=True).to(device)
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, 219).to(device) # 最後一層
+    model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
+    # model = torch.load('model.pth').to(device)
 
     preprocess = transforms.Compose([
     transforms.ToPILImage(),
     transforms.Resize((256,256)),
     transforms.ToTensor(),
-    transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
-    )
     ])
     # preprocess = transforms.Compose([
         # transforms.Resize((256,256)),
@@ -69,7 +65,8 @@ def call_identify_result(event):
 
     label = predict(img)
     label = label.item() # numpy iny64 to python int
-    species = str(df2[df2['category'] == label]['species'].tolist()[0])
+    species = str(df2[df2['category'] == label]['species'].tolist()[0])    
+
     if species == 'X':
         # 辨識到未知的品種
         messages=[]
@@ -80,9 +77,9 @@ def call_identify_result(event):
         genus = str(df[df['species'] == species]['genus'].tolist()[0])
         message = TemplateSendMessage(
             alt_text='Buttons template',
-            template=ButtonsTemplate(
-                thumbnail_image_url=url_for('static', filename='images/temp_image.png', _external=True).replace('http://', 'https://'),
-                # thumbnail_image_url=get_imgur_url(),
+            template=ButtonsTemplate(                
+                # thumbnail_image_url=url_for('static', filename='images/temp_image.png', _external=True).replace('http://', 'https://'),
+                thumbnail_image_url=get_imgur_url(),
                 title=species,
                 text=genus,
                 actions=[
