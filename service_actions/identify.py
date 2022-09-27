@@ -35,18 +35,18 @@ def predict(img):
     # model.load_state_dict(torch.load('model_acc_0.874.ckpt'))
     model = torch.load('model.pth').to(device)
 
-    # preprocess = transforms.Compose([
-    # transforms.ToPILImage(),
-    # transforms.Resize((256,256)),
-    # transforms.ToTensor(),
-    # ])
     preprocess = transforms.Compose([
-        transforms.Resize((256,256)),
-        transforms.ToTensor(),
-        transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
-    )])
+    transforms.ToPILImage(),
+    transforms.Resize((256,256)),
+    transforms.ToTensor(),
+    ])
+    # preprocess = transforms.Compose([
+    #     transforms.Resize((256,256)),
+    #     transforms.ToTensor(),
+    #     transforms.Normalize(
+    #     mean=[0.485, 0.456, 0.406],
+    #     std=[0.229, 0.224, 0.225]
+    # )])
     img_preprocessed = preprocess(img)
     batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)
     x_tensor = batch_img_tensor.to(device)
