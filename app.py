@@ -33,8 +33,8 @@ def callback():
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
-    user_id = event.source.user_id
-    user_name = line_bot_api.get_profile(user_id).display_name
+    # user_id = event.source.user_id
+    # user_name = line_bot_api.get_profile(user_id).display_name
     # print(event.postback.data)
     postback_data = dict(parse_qsl(event.postback.data))
     # print(postback_data.get('action', ''))
