@@ -37,7 +37,7 @@ def predict(img):
 
     preprocess = transforms.Compose([
     transforms.ToPILImage(),
-    transforms.Resize((256,256)),
+    transforms.Resize((224,224)),
     transforms.ToTensor(),
     ])
     # preprocess = transforms.Compose([
